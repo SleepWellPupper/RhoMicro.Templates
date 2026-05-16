@@ -10,11 +10,10 @@
       "type": "solution"
     },
     "symbols": {
-      "SolutionName":{
+      "Name":{
         "type": "parameter",
-        "description": "The name of the solution.",
+        "description": "The name of the project.",
         "datatype": "text",
-	"isRequired": true,
         "replaces": "ClassLibrary",
         "fileRename": "ClassLibrary",
         "defaultValue": "ClassLibrary"
