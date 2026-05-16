@@ -1,0 +1,15 @@
+name: publish
+
+on: 
+  push:
+    branch:
+      - publish
+    tags:
+      - '*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps: []
+#    - name: Publish
+#      run: dotnet nuget push --skip-duplicate --api-key=${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json ./**/*.nupkg
