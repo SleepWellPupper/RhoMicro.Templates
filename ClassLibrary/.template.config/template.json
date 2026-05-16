@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Paul Braetz",
+    "classifications": [ "Library", "Code", "Common", "CSharp", "C#" ],
+    "identity": "RhoMicro.Templates.ClassLibrary",
+    "name": "C# class library with tests project.",
+    "shortName": "rhomicrolib",
+    "tags": {
+      "language": "C#",
+      "type": "solution"
+    },
+    "symbols": {
+      "SolutionName":{
+        "type": "parameter",
+        "description": "The name of the solution.",
+        "datatype": "text",
+	"isRequired": true,
+        "replaces": "ClassLibrary",
+        "fileRename": "ClassLibrary",
+        "defaultValue": "ClassLibrary"
+      },
+      "SpdxLicenseIdentifier":{
+        "type": "parameter",
+        "description": "The SPDX license identifier for your work."
+        "datatype": "text",
+        "defaultValue": "MPL-2.0",
+        "replaces": "MPL-2.0"
+      },
+      "SolutionDescription":{
+        "type": "parameter",
+        "description": "The description for the solution.",
+        "datatype": "text",
+        "defaultValue": "This is a class library.",
+        "replaces": "This is a class library."
+      },
+      "PackageTags":{
+        "type": "parameter",
+        "description": "A semicolon-separated list of package tags.",
+        "datatype": "text",
+        "defaultValue": "",
+        "replaces": "TEMPLATE_PACKAGE_TAGS"
+      },
+      "TargetFramework":{
+        "type": "parameter",
+        "description": "The major tfm version of the solution.",
+        "datatype": "choice",
+        "enableQuotelessLiterals": true,
+        "choices": [
+          {
+            "choice": "10",
+            "description": "net10.0"
+          }
+        ],
+        "replaces": "TEMPLATE_TFM_MAJOR",
+        "defaultValue": "10"
+      }
+    }
+  }
