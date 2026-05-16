@@ -1,5 +1,5 @@
 <Project>
-  <PropertyGroup Label="AnalysisInfo">
+  <PropertyGroup>
     <TargetFramework>netTEMPLATE_TFM_MAJOR.0</TargetFramework>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisMode>All</AnalysisMode>
@@ -11,10 +11,15 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>$(NoWarn);CA1716;CA1034;CA1812</NoWarn>
     <WarningsAsErrors>$(WarningsAsErrors);CS1591</WarningsAsErrors>
-  </PropertyGroup>
-  <PropertyGroup Label="PackageInfo">
-    <IsPackable>false</IsPackable>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <PropertyGroup Condition="$([System.String]::Copy('$(MSBuildProjectName)').EndsWith('.Tests'))">
+    <IsTestProject>true</IsTestProject>
+    <IsPackable>false</IsPackable>
+    <NoWarn>$(NoWarn);CS1591;CA1515;CA2000;CA2007;CA1861;CA1062</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(IsTestProject)' == 'false'">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <DebugSymbols>true</DebugSymbols>
     <IncludeSymbols>true</IncludeSymbols>
@@ -29,13 +34,10 @@
     <Authors>Paul Braetz</Authors>
     <Copyright>$([System.DateTime]::Now.ToString('yyyy'))</Copyright>
     <Company>RhoMicro</Company>
-    <RepositoryUrl>https://github.com/SleepWellPupper/$(SolutionName)</RepositoryUrl>
+    <RepositoryUrl>https://github.com/SleepWellPupper/RhoMicro.ClassLibrary</RepositoryUrl>
     <ProjectUrl>$(RepositoryUrl)</ProjectUrl>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(IsTestProject)' == 'false'">
     <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All"/>
   </ItemGroup>
-  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
-    <NoWarn>$(NoWarn);CS1591;CA1515;CA2000;CA2007;CA1861;CA1062</NoWarn>
-  </PropertyGroup>
 </Project>
