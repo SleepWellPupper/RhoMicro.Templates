@@ -21,7 +21,7 @@
       },
       "SpdxLicenseIdentifier":{
         "type": "parameter",
-        "description": "The SPDX license identifier for your work."
+        "description": "The SPDX license identifier for your work.",
         "datatype": "text",
         "defaultValue": "MPL-2.0",
         "replaces": "MPL-2.0"

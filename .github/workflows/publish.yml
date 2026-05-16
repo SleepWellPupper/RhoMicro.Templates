@@ -4,8 +4,6 @@ on:
   push:
     branch:
       - master
-    tags:
-      - '*'
 
 jobs:
   publish:
@@ -16,7 +14,38 @@ jobs:
       uses: actions/setup-dotnet@v5
       with:
         dotnet-version: 10.x.x
+    - name: Determine Version
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        echo "Querying NuGet for package versions"
+
+        # Fetch all versions from NuGet flat container API
+        response=$(curl -s "https://api.nuget.org/v3-flatcontainer/rhomicro.templates/index.json")
+
+        # Extract versions and determine highest major version
+        max_major=$(echo "$response" \
+          | jq -r '.versions[]' \
+          | cut -d'.' -f1 \
+          | sort -n \
+          | tail -1)
+
+        # If package does not exist yet, start at 1
+        if [[ -z "$max_major" || "$max_major" == "null" ]]; then
+          next_major=1
+        else
+          next_major=$((max_major + 1))
+        fi
+  
+        # Build version string
+        Version="${next_major}.0.0"
+  
+        echo "Next package version: $Version"
+
+        # Export for later GitHub Actions steps
+        echo "Version=$Version" >> "$GITHUB_ENV"
     - name: Pack
-      run: dotnet pack RhoMicro.Templates.csproj --output nupkgs --version ${{ github.ref_name }}
-    - name: Publish
-      run: dotnet nuget push --skip-duplicate --api-key=${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json nupkgs/*.nupkg
+      run: dotnet pack RhoMicro.Templates.csproj --output nupkgs --version $Version
+#    - name: Publish
+#      run: dotnet nuget push --skip-duplicate --api-key=${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json nupkgs/*.nupkg
