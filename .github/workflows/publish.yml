@@ -47,5 +47,5 @@ jobs:
         echo "Version=$Version" >> "$GITHUB_ENV"
     - name: Pack
       run: dotnet pack RhoMicro.Templates.csproj --output nupkgs --version $Version
-#    - name: Publish
-#      run: dotnet nuget push --skip-duplicate --api-key=${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json nupkgs/*.nupkg
+    - name: Publish
+      run: dotnet nuget push --skip-duplicate --api-key=${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json nupkgs/*.nupkg
